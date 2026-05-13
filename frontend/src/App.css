@@ -1,0 +1,296 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #000;
+  font-family: 'Inter', sans-serif;
+  overflow: hidden;
+}
+
+.app {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+/* ─── TITLE ───────────────────────────────────────────────────────────────── */
+
+.title {
+  position: fixed;
+  top: 2rem;
+  right: 3rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: 0.4em;
+  text-transform: capitalize;
+  color: rgba(255, 255, 255, 0.4);
+  z-index: 20;
+  pointer-events: none;
+}
+
+/* ─── BOTTOM-RIGHT PANEL ─────────────────────────────────────────────────── */
+
+.bottom {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+
+  /* wide enough for two cards side by side */
+  width: clamp(480px, 44vw, 720px);
+  max-height: calc(100vh - 4rem);
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+  z-index: 10;
+}
+
+/* ─── CARDS: two columns, scroll if overflow ─────────────────────────────── */
+
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  align-items: start;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+
+  /* max height = full panel minus searchbar (~80px) and gap */
+  max-height: calc(100vh - 4rem - 80px - 1rem);
+}
+
+.cards::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── SINGLE CARD ────────────────────────────────────────────────────────── */
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+
+  min-width: 0;
+  box-sizing: border-box;
+
+  /* card scrolls internally if summary is very long */
+  max-height: calc(100vh - 4rem - 80px - 2rem);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.card::-webkit-scrollbar {
+  display: none;
+}
+
+.card-art {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0.5rem;
+  object-fit: cover;
+}
+
+.card-song {
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  word-break: break-word;
+}
+
+.card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tag {
+  font-size: 0.65rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.card-summary {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+  word-break: break-word;
+}
+
+.card-spotify {
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  text-align: center;
+  transition: all 0.2s;
+  margin-top: auto;
+}
+
+.card-spotify:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* unused but kept */
+.card-lyric {
+  font-size: 1rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.5;
+}
+
+.card-lyric-en {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.4);
+  line-height: 1.5;
+}
+
+.card-reason {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 1.6;
+}
+
+/* ─── SEARCH BAR ─────────────────────────────────────────────────────────── */
+
+.searchbar {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+.preset-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.preset-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.input-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 999px;
+  padding: 0.9rem 1.5rem;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.input:focus {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+}
+
+.submit-btn {
+  background: white;
+  color: black;
+  border: none;
+  border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+}
+
+.submit-btn:hover {
+  opacity: 0.8;
+}
+
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  .bottom {
+    right: 1rem;
+    bottom: 1rem;
+    width: calc(100vw - 2rem);
+    max-height: calc(100vh - 2rem);
+  }
+
+  .cards {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .title {
+    right: 1rem;
+    top: 1rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.22em;
+  }
+}
+
+@media (max-width: 500px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+.how-btn {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 20;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.75rem 1.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.how-btn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}

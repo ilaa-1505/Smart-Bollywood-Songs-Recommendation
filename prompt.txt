@@ -1,0 +1,180 @@
+Prompt 1 — Match lyrics from Excel to your JSON
+I have two files:
+1. songs.json — a JSON array where each object has a "song" field (song title)
+2. clean_data.csv — a csv file with 4 columns:
+    - Column 1 : 
+   - Column 2: Song Title
+   - Column 3: Hindi Lyrics
+   - Column 4: English Translation
+
+Write a Python script that:
+- Loads both files
+- For each song in songs.json, finds the best matching row in the Excel file by song title
+- Matching must be fuzzy — ignore case, ignore extra spaces, handle minor spelling differences (use rapidfuzz or thefuzz library, match score threshold of 80)
+- If a match is found, adds one new fields to that song object: "english_translation"
+- If no match is found, adds "english_translation": null and prints a warning with the song name
+- Saves progress back to songs.json after EVERY song (not at the end) so if it crashes, completed songs are preserved
+- At the end, prints a summary: how many matched, how many failed, and lists the failed ones
+
+use tqdm to show progress
+
+Prompt 2 — LLM tagging and summarization per song
+I have a songs.json file where each song object has:
+- "song": song title
+- "english_translation": English translation of the lyrics (may be null)
+- optionally already has "mood_tags", "emotional_summary", "proof_lyric" from a previous run
+
+Write a Python script that:
+- Loads songs.json
+- Skips any song that already has "mood_tags" populated (so reruns are safe)
+- Skips any song where english_translation is null (print a warning)
+- For each remaining song, makes a single Groq API call (model: llama-3.3-70b-versatile) with this system prompt and user message:
+
+SYSTEM:
+You are a Bollywood music analyst. You understand the emotional texture of songs deeply.
+You must respond with valid JSON only. No explanation, no markdown, no extra text.
+
+USER:
+Analyze this Bollywood song based on its English translation of lyrics.
+
+Song: {song_title}
+Lyrics (English translation):
+{english_translation}
+
+Return a JSON object with exactly these fields:
+
+{{
+  "mood_tags": [Top 2 to 4 tags picked ONLY from this list: heartbreak, nostalgia, abandonment, grief, regret, longing, homesickness, waiting, unspoken feelings, unrequited love, romantic love, passion, togetherness, warmth, new love, vulnerability, euphoria, festive, carefree, playfulness, gratitude, stillness, introspection, late night calm, solitude, numbness, hope, moving on, healing, determination, resilience, anger, frustration, betrayal, restlessness, disillusionment, existential dread, lost, purposelessness, time passing, mortality, loneliness, quiet despair],
+  "emotional_summary": "2-3 sentences describing the emotional world of this song — what moment it belongs to, what it feels like to listen to it",
+  "proof_lyric": "one specific line from the lyrics that best proves the emotional match"
+}}
+
+Rules:
+- mood_tags must only contain tags from the provided list, nothing else
+- proof_lyric must be an actual line from the lyrics, not paraphrased
+- emotional_summary should be vivid and specific, not generic
+
+- After getting the response, parse the JSON and merge these fields into the song object in songs.json
+- Save songs.json after EVERY song, not at the end
+- Add a 1 second delay between API calls to avoid rate limiting
+- If the API call fails or JSON parsing fails, print a warning with the song name and skip it (do not crash)
+- At the end print: total processed, total skipped (already done), total failed
+
+Two things to note before you run these:
+For Prompt 1, make sure rapidfuzz is installed (pip install rapidfuzz openpyxl). For Prompt 2, have your GROQ_API_KEY set as an environment variable. The incremental save after every song means you can kill and restart either script safely at any point.
+
+
+
+
+
+
+
+
+
+
+
+i am building a smart bollywood song recommendation system
+
+for that i am building a dataset of songs i handpicked 
+and then got its english translated lyrics adn fed it to a llm with 60 predefined labels 
+the llm labelled top 3 matching mood labels along with a summary of the song 
+
+example:
+
+```json
+{
+    "song": "Kal Ho Na Ho",
+    "mood_tags": [
+      "nostalgia",
+      "longing",
+      "vulnerability"
+    ],
+    "emotional_summary": "Kal Ho Na Ho is a poignant reflection on the fleeting nature of life and love, capturing the bittersweet feeling of cherishing every moment with the one you hold dear. The song's emotional landscape is characterized by a sense of urgency and intimacy, as if the speaker is aware that the present moment may not last forever. This sentiment is both melancholic and romantic, inviting the listener to appreciate the beauty of impermanence.",
+    "lyrics_snippet": "Every moment life is changing / Sometimes there is shade, sometimes there is sun / Live every moment here to the fullest / This very moment may not be there tomorrow / Every moment life is changing / Sometimes there is shade, sometimes there is sun / Live every moment here to the fullest / This very moment may not be there tomorrow / The one who loves you whole heartedly / Is very difficult to come by / If there is someone like that somewhere / Then that person is the most beautiful / Hold that hand in your hand / That person may not be there tomorrow / Live every moment here to the fullest / This very moment may not be there tomorrow / Taking the support of your eyes / When someone comes near / Control your crazy heart / It will keep on beating / But remember that what is there now / That story may not be there tomorrow / Every moment life is changing / Sometimes there is shade, sometimes there is sun / Live every moment here to the fullest / This very moment may not be there tomorrow / Live every moment here to the fullest / This very moment may not be there tomorrow / This very moment may not be there tomorrow",
+    "spotify_track_id": "",
+    "audio_features": {
+      "valence": null,
+      "energy": null,
+      "tempo": null,
+      "danceability": null,
+      "acousticness": null
+    }
+  },
+  {
+    "song": "Kabhi Alvida Naa Kehna",
+    "mood_tags": [
+      "grief",
+      "longing",
+      "nostalgia"
+    ],
+    "emotional_summary": "This song captures the bittersweet pain of a lost love, where memories of the past linger long after the relationship has ended. The lyrics convey a deep sense of longing and grief, as the speaker struggles to come to terms with the separation. The song's emotional texture is characterized by a haunting nostalgia, evoking a sense of timelessness and irreversibility.",
+    "lyrics_snippet": "You also know it / I also know it / That it's separating / The path for both of us / Even after going far from me / You still stay in my memories / Never say goodbye / Never say goodbye / Never say goodbye / You also know it / I also know it / That it's separating / The path for both of us / Even after going far from me / You still stay in my memories / Never say goodbye / Never say goodbye / Never say goodbye / All the happiness that was there / Is all lost / Just this sadness won't go away / I tried to make it understand / I tried to persuade it / But the heart doesn't find any peace ... doesn't find it / Are these tears or fireballs / Now fire has to flow from my eyes / Never say goodbye / Never say goodbye / Never say goodbye / The seasons are coming / The seasons are going / But the season of pain hasn't changed / The colour of sadness / Is very deep / It won't get light even in years ... won't get light / Who knows what will happen / Now what all do I have to bear / Goodbye, never ... hmmm / Never say goodbye / Never say goodbye / You also know it / I also know it / That it's separating / The path for both of us / Even after going far from me / You still stay in my memories / Never say goodbye / Never say goodbye / Never say goodbye / Never say goodbye / Never say goodbye",
+    "spotify_track_id": "",
+    "audio_features": {
+      "valence": null,
+      "energy": null,
+      "tempo": null,
+      "danceability": null,
+      "acousticness": null
+    }
+  },
+```
+
+
+anyways so its like this 
+
+now i want to start building the project since all preprocessing is done
+
+so i need you to build this project step by step with me
+
+the plan is to take a one or two line prompt from the user based on their situation/mood
+
+feed it to the llm - to get the tags 
+
+and then get all songs with matching tags(lexical matching - keyword match or bm25 whichever is faster)
+
+and also ask the llm to get undelying emotions in the prompt to match with the summaries - semantic match 
+
+and finally recommend one or 2 songs and play it using spotify api
+
+
+also 
+one idea can use info from spotify api about the tonal texture and enrgy of the song and add it to the dataset - will help match moods better?
+
+
+and on frontend there will be a place to enter the prompt 
+
+but also i want to make a constellation of all the song based on tags like every tagcan connect to another song something like litmaps
+
+i originally wanted to use streamlit but frontend wouldnt be possible so i guess its fast api + react now
+
+also i need a song player to actually play the song - on my frontend(can the api do that? or does it just add to queue?)
+
+also we keep default mood and scenarios buttons
+
+
+dont make the whole project now
+we build it step by step together
+
+spotify is down so we will start building the backend and then before testing check spotify
+
+i already have the code to get info from spotify so skip that as of now.
+
+lets move to reccomendation 
+
+bollywood-mood/
+├── backend/
+│   ├── .env                        ← your GROQ_API_KEY goes here
+│   ├── requirements.txt            ← fastapi, groq, bm25, etc.
+│   └── app/
+│       ├── main.py                 ← FastAPI app + CORS
+│       ├── core/config.py          ← settings from .env
+│       ├── api/routes/
+│       │   ├── recommend.py        ← /api/recommend
+│       │   └── songs.py            ← /api/songs
+│       ├── services/
+│       │   ├── llm.py              ← Groq tag extractor (next)
+│       │   ├── matcher.py          ← BM25 (after that)
+│       │   └── spotify.py          ← placeholder
+│       └── data/
+│           └── songs.json          ← drop your file here

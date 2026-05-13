@@ -1,0 +1,34 @@
+# Python
+myenv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env
+
+# Node
+node_modules/
+
+# Build folders
+dist/
+build/
+.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Embeddings / large generated files
+embeddings/
+*.npy
+
+# HF cache
+.cache/
