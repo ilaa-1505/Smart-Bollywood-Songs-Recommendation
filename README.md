@@ -24,8 +24,10 @@ This project does something different. You describe your exact moment — in one
 ---
 
 ## Demo
-
+ 
 [![Watch demo](images/image-1.png)](https://youtu.be/if_3mF0Geho)
+ 
+*Click the image to watch the demo*
 
 ---
 
@@ -99,7 +101,7 @@ Songs live as nodes in a 3D star field. Emotional similarity becomes edges. Reco
 
 It shows you the emotional landscape of the entire library and where your moment lands inside it.
 
-> ![alt text](images/image-1.png)
+> ![alt text](images/image.png)
 
 ---
 
@@ -107,7 +109,7 @@ It shows you the emotional landscape of the entire library and where your moment
 
 Each result comes with the emotional reason it was picked, album art, mood tags, and a Spotify link. Not just "this is a good match." Why this song, for this exact moment.
 
-> ![alt text](images/image.png)
+> ![alt text](images/image-1.png)
 
 ---
 
