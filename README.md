@@ -20,14 +20,14 @@ This project does something different. You describe your exact moment : in one l
 ## Live demo
 
 🔗 [https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation](https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation)
-
+> If the Space is sleeping, it may take ~30 seconds to wake up on first visit.
 ---
 
 ## Demo
  
-[![Watch demo](images/image-1.png)](https://youtu.be/if_3mF0Geho)
+[![Watch demo](images/song_demo.gif)](https://youtu.be/CIXeNfe6_8I)
  
-*Click the image to watch the demo*
+*Click the gif to watch the demo*
 
 ---
 
