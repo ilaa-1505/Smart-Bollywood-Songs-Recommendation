@@ -19,7 +19,7 @@ This project does something different. You describe your exact moment — in one
 
 ## Live demo
 
-🔗 [Try it here](https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation)
+🔗 [https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation](https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation)
 
 ---
 
