@@ -17,6 +17,18 @@ This project does something different. You describe your exact moment — in one
 
 ---
 
+## Live demo
+
+🔗 [Try it here](https://huggingface.co/spaces/Ilaa-1505/smart-bollywood-songs-recommendation)
+
+---
+
+## Demo
+
+![Demo](images/demo.gif)
+
+---
+
 ## How it works
 
 You type one line. That's it.
@@ -35,13 +47,6 @@ flowchart TD
     F --> G([Recommendation cards])
     F --> H([Constellation visualization])
 ```
-
----
-
-## Demo
-
-> ![\[screenshot here\]](images/image-1.png)
-
 
 ---
 
@@ -94,7 +99,7 @@ Songs live as nodes in a 3D star field. Emotional similarity becomes edges. Reco
 
 It shows you the emotional landscape of the entire library and where your moment lands inside it.
 
-> ![\[screenshot here\]](images/image-2.png)
+> ![alt text](images/image-2.png)
 
 ---
 
