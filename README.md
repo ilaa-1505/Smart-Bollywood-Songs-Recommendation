@@ -4,7 +4,7 @@ Spotify knows you listened to Tum Hi Ho 47 times last month. It does not know yo
 
 Algorithms see patterns. They don't see you.
 
-This project does something different. You describe your exact moment — in one line, in English, Hindi, or Hinglish — and it finds the Bollywood song where one specific lyric proves it understood you. Not your mood. Not your genre. Your moment.
+This project does something different. You describe your exact moment : in one line, in English, Hinglish and it finds the Bollywood song where one specific lyric proves it understood you. Not your mood. Not your genre. Your moment.
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue?style=flat-square)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square)
@@ -58,9 +58,9 @@ flowchart TD
 
 Your input goes to an LLM that reads between the lines. It doesn't label your mood with a single word. It generates 3 grounded emotional tags and a restrained semantic description of what you're actually feeling, without overclaiming.
 
-Input: "sad and lonely tonight"
-Tags: loneliness, quiet despair, solitude
-Emotion: a deep sense of isolation and disconnection, preoccupied with being alone
+- Input: "sad and lonely tonight"
+- Tags: loneliness, quiet despair, solitude
+- Emotion: a deep sense of isolation and disconnection, preoccupied with being alone
 
 
 ---
