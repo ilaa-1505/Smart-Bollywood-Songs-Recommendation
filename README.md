@@ -24,10 +24,11 @@ This project does something different. You describe your exact moment : in one l
 ---
 
 ## Demo
- 
-[![Watch demo](images/song_demo.gif)](https://youtu.be/CIXeNfe6_8I)
- 
-*Click the gif to watch the demo*
+
+ <a href="https://youtu.be/CIXeNfe6_8I">
+  <img src="images/song_demo.gif" width="100%" alt="Demo" />
+</a>
+> *Click the gif to watch the demo*
 
 ---
 
