@@ -38,31 +38,29 @@ body {
   right: 2rem;
   bottom: 2rem;
 
-  /* wide enough for two cards side by side */
-  width: clamp(480px, 44vw, 720px);
+  width: clamp(300px, 28vw, 480px);
   max-height: calc(100vh - 4rem);
 
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 1rem;
+  gap: 0.75rem;
   z-index: 10;
 }
 
-/* ─── CARDS: two columns, scroll if overflow ─────────────────────────────── */
+/* ─── CARDS GRID ─────────────────────────────────────────────────────────── */
 
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.75rem;
+  gap: 0.6rem;
   align-items: start;
 
+  flex: 1;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: none;
-
-  /* max height = full panel minus searchbar (~80px) and gap */
-  max-height: calc(100vh - 4rem - 80px - 1rem);
 }
 
 .cards::-webkit-scrollbar {
@@ -72,75 +70,80 @@ body {
 /* ─── SINGLE CARD ────────────────────────────────────────────────────────── */
 
 .card {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(10, 10, 10, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 1rem;
-  padding: 1.25rem;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  padding: 0.85rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.5rem;
 
   min-width: 0;
   box-sizing: border-box;
 
-  /* card scrolls internally if summary is very long */
-  max-height: calc(100vh - 4rem - 80px - 2rem);
-  overflow-y: auto;
-  scrollbar-width: none;
+  height: 55vh;
+
+
 }
 
 .card::-webkit-scrollbar {
   display: none;
 }
 
+/* ─── ALBUM ART ──────────────────────────────────────────────────────────── */
+
 .card-art {
   width: 100%;
   aspect-ratio: 1 / 1;
-  border-radius: 0.5rem;
+  border-radius: 0.4rem;
   object-fit: cover;
+  flex-shrink: 0;
 }
 
 .card-song {
-  font-size: 1rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: white;
   word-break: break-word;
+  flex-shrink: 0;
 }
 
 .card-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: 0.3rem;
+  flex-shrink: 0;
 }
 
 .tag {
-  font-size: 0.65rem;
-  padding: 0.2rem 0.55rem;
+  font-size: 0.58rem;
+  padding: 0.15rem 0.42rem;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.08);
   color: rgba(255, 255, 255, 0.5);
 }
 
 .card-summary {
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.5);
-  line-height: 1.6;
+  line-height: 1.55;
   word-break: break-word;
 }
 
 .card-spotify {
-  font-size: 0.78rem;
+  font-size: 0.7rem;
   color: rgba(255, 255, 255, 0.4);
   text-decoration: none;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.4rem 0.8rem;
+  padding: 0.32rem 0.6rem;
   border-radius: 999px;
   text-align: center;
   transition: all 0.2s;
   margin-top: auto;
+  flex-shrink: 0;
 }
 
 .card-spotify:hover {
@@ -148,22 +151,21 @@ body {
   border-color: rgba(255, 255, 255, 0.4);
 }
 
-/* unused but kept */
 .card-lyric {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-style: italic;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1.5;
 }
 
 .card-lyric-en {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.4);
   line-height: 1.5;
 }
 
 .card-reason {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.5);
   line-height: 1.6;
 }
@@ -174,7 +176,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  gap: 0.75rem;
+  gap: 0.65rem;
   flex-shrink: 0;
 }
 
@@ -182,16 +184,16 @@ body {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 0.5rem;
+  gap: 0.4rem;
 }
 
 .preset-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.5);
-  padding: 0.4rem 1rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.75rem;
+  font-size: 0.68rem;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -203,7 +205,7 @@ body {
 
 .input-row {
   display: flex;
-  gap: 0.75rem;
+  gap: 0.6rem;
 }
 
 .input {
@@ -211,9 +213,9 @@ body {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 999px;
-  padding: 0.9rem 1.5rem;
+  padding: 0.7rem 1.1rem;
   color: white;
-  font-size: 1rem;
+  font-size: 0.85rem;
   outline: none;
   transition: border 0.2s;
 }
@@ -231,9 +233,9 @@ body {
   color: black;
   border: none;
   border-radius: 999px;
-  width: 48px;
-  height: 48px;
-  font-size: 1.2rem;
+  width: 42px;
+  height: 42px;
+  font-size: 1rem;
   cursor: pointer;
   transition: opacity 0.2s;
   flex-shrink: 0;
@@ -245,6 +247,16 @@ body {
 
 /* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
 
+@media (max-width: 1280px) {
+  .bottom {
+    width: clamp(280px, 32vw, 420px);
+  }
+
+  .card {
+    height: 52vh;
+  }
+}
+
 @media (max-width: 900px) {
   .bottom {
     right: 1rem;
@@ -253,8 +265,8 @@ body {
     max-height: calc(100vh - 2rem);
   }
 
-  .cards {
-    grid-template-columns: 1fr 1fr;
+  .card {
+    height: 48vh;
   }
 
   .title {
@@ -270,6 +282,8 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── HOW BTN / SUBTITLE ─────────────────────────────────────────────────── */
 
 .how-btn {
   position: fixed;
@@ -293,4 +307,52 @@ body {
 .how-btn:hover {
   color: #fff;
   border-color: rgba(255, 255, 255, 0.3);
+}
+
+.subtitle {
+  position: fixed;
+  top: 4.5rem;
+  right: 3rem;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.2);
+  text-align: right;
+  max-width: 340px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+}
+
+/* ─── CARD SCROLL + REASON ───────────────────────────────────────────────── */
+
+.card {
+  overflow: hidden;
+  /* card itself does not scroll */
+}
+
+.card-scroll {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 0;
+}
+
+.card-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.card-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.card-reason-label {
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.25);
+  flex-shrink: 0;
 }

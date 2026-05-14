@@ -355,8 +355,8 @@ export default function Constellation({ recommendations, songs }) {
                 const recommendationsOffset =
                     recommendations.length > 0
                         ? width < 900
-                            ? width * 0.12
-                            : width * 0.18
+                            ? width * 0.18
+                            : width * 0.32
                         : 0
 
                 const desiredX =

@@ -41,6 +41,7 @@ export default function App() {
     <div className="app">
       <Constellation recommendations={recommendations} songs={songs} />
       <h1 className="title">Daastan</h1>
+      <p className="subtitle">Powered by semantic search, BM25 retrieval, and an LLM that thinks like a Bollywood nerd.</p>
 
       <button className="how-btn" onClick={() => setShowPipeline(true)}>
         how it works
