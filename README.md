@@ -25,7 +25,7 @@ This project does something different. You describe your exact moment — in one
 
 ## Demo
 
-![Demo](images/demo.gif)
+[![Watch demo](images/image-1.png)](https://youtu.be/if_3mF0Geho)
 
 ---
 
@@ -89,7 +89,7 @@ Semantic relevance carries most of the weight because feelings are fuzzy, not ke
 
 The top candidates go to a second LLM. This one reads your original words again, not just the extracted tags. It understands the emotional intent underneath, selects the 2 songs that actually fit, and writes grounded reasoning tied to real lyrics.
 
-> ![alt text](images/image-3.png)
+> ![alt text](images/image-2.png)
 
 ---
 
@@ -99,7 +99,7 @@ Songs live as nodes in a 3D star field. Emotional similarity becomes edges. Reco
 
 It shows you the emotional landscape of the entire library and where your moment lands inside it.
 
-> ![alt text](images/image-2.png)
+> ![alt text](images/image-1.png)
 
 ---
 
